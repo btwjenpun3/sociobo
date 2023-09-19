@@ -25,14 +25,14 @@ class oAuthController extends Controller
     //     ]);
     // }
 
-    public function handleProviderCallbackTwitter($user) {
+    public function handleProviderCallbackTwitter() {
         $user = Socialite::driver('twitter')->user();
-        // $data = User::where('id', auth()->id())->first();
-        $data->update([
+        $data = User::where('id', auth()->id())->first();
+        $authUser = $data->update([
             'provider' => 'twitter',
             'provider_id' => $user->id
         ]);
-        // Auth::login($authUser, true);
+        Auth::login($authUser);
         return redirect()->route('twitter');
     }
 }
