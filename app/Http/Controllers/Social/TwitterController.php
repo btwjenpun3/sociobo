@@ -8,12 +8,11 @@ use App\Models\User;
 
 class TwitterController extends Controller
 {
-    public function index(Request $id) {
-        $user = User::find($id);
-        $userData = $user->first();
+    public function index() {        
+        $user = User::where('id', auth()->id())->first();
         return view('Pages.Social Media.Twitter.index', [
-            'provider' => $userData->provider,
-            'provider_id' => $userData->provider_id
+            'provider' => $user->provider,
+            'provider_id' => $user->provider_id
         ]);
     }
 }
