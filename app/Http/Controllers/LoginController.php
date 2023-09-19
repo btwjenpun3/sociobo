@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Laravel\Socialite\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -21,14 +21,7 @@ class LoginController extends Controller
         return Socialite::driver('twitter')->redirect();
     }
 
-    public function handleProviderCallback($provider) {
-        $user = Socialite::driver($provider)->user();
-        $authUser = $this->findOrCreateUser($user, $provider);
-        Auth::login($authUser, true);
-        return redirect($this->redirectTo);
-    }
-
-    public function findOrCreateUser($user, $provider) {
+    public function findOrCreateUser($user) {
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
             return $authUser;
@@ -36,9 +29,16 @@ class LoginController extends Controller
         return User::create([
             'name'     => $user->name,
             'email'    => $user->email,
-            'provider' => $provider,
+            'provider' => 'twitter',
             'provider_id' => $user->id
         ]);
     }
+
+    public function handleProviderCallback() {
+        $user = Socialite::driver('twitter')->user();
+        $authUser = $this->findOrCreateUser($user, 'twitter');
+        Auth::login($authUser, true);
+        return redirect($this->redirectTo);
+    }    
    
 }
