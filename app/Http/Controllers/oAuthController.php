@@ -28,11 +28,11 @@ class oAuthController extends Controller
     public function handleProviderCallbackTwitter() {
         $user = Socialite::driver('twitter')->user();
         $data = User::where('id', auth()->id())->first();
-        $authUser = $data->update([
+        $data->update([
             'provider' => 'twitter',
             'provider_id' => $user->id
         ]);
-        Auth::login($authUser);
+        // Auth::attempt($authUser);
         return redirect()->route('twitter');
     }
 }

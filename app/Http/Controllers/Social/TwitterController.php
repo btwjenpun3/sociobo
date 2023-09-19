@@ -10,7 +10,10 @@ class TwitterController extends Controller
 {
     public function index(Request $id) {
         $user = User::find($id);
-        $user->first();
-        return view('Pages.Social Media.Twitter.index');
+        $userData = $user->first();
+        return view('Pages.Social Media.Twitter.index', [
+            'provider' => $userData->provider,
+            'provider_id' => $userData->provider_id
+        ]);
     }
 }
