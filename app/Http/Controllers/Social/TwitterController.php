@@ -24,13 +24,12 @@ class TwitterController extends Controller
         $userToken = oAuth::where('user_id', auth()->id())->first();
         if(isset($userToken)) {   
             $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userToken->oauth_token, $userToken->oauth_token_secret);
-            $userData = $connection->get('account/verify_credentials', [
-                'include_entities' => 'true'
-            ]);         
+            $connection->setApiVersion('2');
+            $response = $connection->get('users', ['ids' => $userToken->provider_user_id]);         
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
-            return response($userData);
+            return response()->json($response);
         } else {
             return view('Pages.Social Media.Twitter.index');
         }
