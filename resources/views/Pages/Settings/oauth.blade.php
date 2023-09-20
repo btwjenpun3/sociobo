@@ -11,13 +11,19 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="oauth_token" class="form-label">oAuth Token</label>
-                                    <input type="oauth_token" class="form-control" id="oauth_token" disabled>
+                                    <input type="oauth_token" class="form-control" id="oauth_token"
+                                        value="{{ $oauth_token }}" disabled>
                                 </div>
                                 <div class="mb-3">
                                     <label for="oauth_token_secret" class="form-label">oAuth Token Secret</label>
-                                    <input type="oauth_token_secret" class="form-control" id="oauth_token_secret" disabled>
+                                    <input type="oauth_token_secret" class="form-control" id="oauth_token_secret"
+                                        value="{{ $oauth_token_secret }}" disabled>
                                 </div>
-                                <a href="{{ route('authorizeTwitter') }}" class="btn btn-warning">Authorize</a>
+                                @if ($authorize_button === 0)
+                                    <a href="{{ route('authorizeTwitter') }}" class="btn btn-success">Authorize</a>
+                                @else
+                                    <a href="{{ route('authorizeTwitter') }}" class="btn btn-danger">Revoke Access </a>
+                                @endif
                             </form>
                         </div>
                     </div>

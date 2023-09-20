@@ -14,11 +14,13 @@ class SettingController extends Controller
             $oauth_token = $oauth->oauth_token;
             $oauth_token_secret = $oauth->oauth_token_secret;
             return view('Pages.Settings.oauth', [
+                'authorize_button' => 1,
                 'oauth_token' => $oauth_token,
                 'oauth_token_secret' => $oauth_token_secret
             ]);
         } else {
             return view('Pages.Settings.oauth', [
+                'authorize_button' => 0,
                 'oauth_token' => NULL,
                 'oauth_token_secret' => NULL
             ]);
