@@ -46,8 +46,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/twitter', [TwitterController::class, 'index'])->name('twitter');
 
+Route::get('/twitter/follower', [TwitterController::class, 'getFollower']);
+
 // ------------!! Twitter oAuth !!------------ //
 
 Route::get('/oauth/twitter/login', [oAuthController::class, 'redirectToProviderTwitter'])->name('loginTwitter');
 
 Route::get('/oauth/twitter/callback', [oAuthController::class, 'handleProviderCallbackTwitter'])->name('callbackTwitter');
+
+
+

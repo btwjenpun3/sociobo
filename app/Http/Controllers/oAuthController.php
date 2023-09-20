@@ -20,9 +20,7 @@ class oAuthController extends Controller
         $data = User::where('id', auth()->id())->first();
         $data->update([
             'provider' => 'twitter',
-            'provider_id' => $user->id,
-            'twitter_nickname' => $user->nickname,
-            'twitter_name' => $user->name
+            'provider_id' => $user->id
         ]);
         // Auth::attempt($authUser);
         return redirect()->route('twitter');

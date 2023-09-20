@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
-            $table->string('twitter_nickname')->nullable();
-            $table->string('twitter_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
