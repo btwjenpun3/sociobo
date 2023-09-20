@@ -17,9 +17,5 @@ class TwitterController extends Controller
             'provider' => $user->provider,
             'provider_id' => $user->provider_id
         ]);
-    }     
-
-    public function userRequestToken() {
-        
-    }
+    }  
 }
