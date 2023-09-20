@@ -25,7 +25,7 @@ class TwitterController extends Controller
         if(isset($userToken)) {   
             $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userToken->oauth_token, $userToken->oauth_token_secret);
             $connection->setApiVersion('2');
-            $response = $connection->get('/2/users/'.$userToken->provider_user_id);         
+            $response = $connection->get('users', ['ids' => $userToken->provider_user_id]);         
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
