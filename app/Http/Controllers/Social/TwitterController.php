@@ -30,7 +30,7 @@ class TwitterController extends Controller
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
-            return response()->json($userData);
+            return response($userData);
         } else {
             return view('Pages.Social Media.Twitter.index');
         }
