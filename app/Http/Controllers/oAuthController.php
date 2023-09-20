@@ -49,14 +49,7 @@ class oAuthController extends Controller
         return redirect($url);
     }     
 
-    public function handleProviderCallbackTwitter(Request $request) {  
-        $request_token = [];
-        $request_token['oauth_token'] = $_SESSION['oauth_token'];
-        $request_token['oauth_token_secret'] = $_SESSION['oauth_token_secret'];
-
-        if (isset($_REQUEST['oauth_token']) && $request_token['oauth_token'] !== $_REQUEST['oauth_token']) {
-            // Abort! Something is wrong.
-}            
+    public function handleProviderCallbackTwitter(Request $request) {                 
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
         $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
     }
