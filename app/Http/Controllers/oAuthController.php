@@ -46,5 +46,7 @@ class oAuthController extends Controller
         $tempToken = TempToken::where('user_id', auth()->id())->first();                   
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $tempToken->oauth_token, $tempToken->oauth_token_secret);
         $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
+
+        return response()->json($access_token);
     }
 }
