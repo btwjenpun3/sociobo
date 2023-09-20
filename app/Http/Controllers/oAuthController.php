@@ -45,7 +45,7 @@ class oAuthController extends Controller
         //     'oauth_token' => $access_token->oauth_token,
         //     'oauth_token_secret' => $access_token->oauth_token_secret
         // ]);
-        return redirect()->route($url);
+        return redirect($url);
     }     
 
     public function handleProviderCallbackTwitter() {    
