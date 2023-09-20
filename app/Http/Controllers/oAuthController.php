@@ -48,10 +48,10 @@ class oAuthController extends Controller
         return redirect($url);
     }     
 
-    public function handleProviderCallbackTwitter() {    
+    public function handleProviderCallbackTwitter(Request $request) {    
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));     
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
-        $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
+        $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $request->oauth_verifier]);
         dd($access_token);
     }
 }
