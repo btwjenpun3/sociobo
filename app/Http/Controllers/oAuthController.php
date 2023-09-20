@@ -32,8 +32,8 @@ class oAuthController extends Controller
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback)); 
         $user = User::find(auth()->id());
         $user->update([
-            'oauth_token' => $request_token->oauth_token,
-            'oauth_token_secret' => $request_token->oauth_token_secret
+            'oauth_token' => json_decode($request_token->oauth_token),
+            'oauth_token_secret' => json_decode($request_token->oauth_token_secret)
         ]);
 
         return redirect()->route('twitter');
