@@ -13,8 +13,12 @@ class TwitterController extends Controller
 {      
     public function index() {        
         $userData = oAuth::where('user_id', auth()->id())->first();
-        return view('Pages.Social Media.Twitter.index', [
-            'name' => $userData->screen_name,
-        ]);
+        if(isset($userData)) {
+            return view('Pages.Social Media.Twitter.index', [
+                'name' => $userData->screen_name,
+            ]);
+        } else {
+            return view('Pages.Social Media.Twitter.index');
+        }
     }  
 }
