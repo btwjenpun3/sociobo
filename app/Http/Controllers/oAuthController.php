@@ -36,10 +36,10 @@ class oAuthController extends Controller
         oAuth::create([
             'user_id' => auth()->id(),
             'provider' => 'twitter',
-            'provider_user_id' => $connection['user_id'],
-            'screen_name' => $connection['screen_name'],
-            'oauth_token' => $connection['oauth_token'],
-            'oauth_token_secret' => $connection['oauth_token_secret']
+            'provider_user_id' => $connection->user_id,
+            'screen_name' => $connection->screen_name,
+            'oauth_token' => $connection->oauth_token,
+            'oauth_token_secret' => $connection->oauth_token_secret
         ]);
         return redirect()->route('twitter');
     }     
