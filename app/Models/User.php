@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'oauth_token',
-        'oauth_token'
+        'oauth_token_secret'
     ];
 
     /**
