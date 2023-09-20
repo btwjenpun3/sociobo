@@ -33,7 +33,8 @@ class oAuthController extends Controller
     public function authorizeTwitter() {         
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));         
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
-        $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));        
+        $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token'])); 
+        dd($url);       
         // $access_token = $connection->oauth("oauth/access_token", [
         //     "oauth_verifier" => $connection['oauth_verifier']
         // ]);        
