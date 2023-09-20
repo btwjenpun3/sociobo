@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\oAuth;
+use App\Models\TempToken;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -31,26 +32,19 @@ class oAuthController extends Controller
     }   
 
     public function authorizeTwitter() {         
-        $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));         
-        $_SESSION['oauth_token'] = $request_token['oauth_token'];
-        $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
-        $url = $this->twitterOAuth->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));       
-        // $access_token = $connection->oauth("oauth/access_token", [
-        //     "oauth_verifier" => $connection['oauth_verifier']
-        // ]);        
-        // oAuth::create([
-        //     'user_id' => auth()->id(),
-        //     'provider' => 'twitter',
-        //     'provider_user_id' => $access_token->user_id,
-        //     'screen_name' => $access_token->screen_name,
-        //     'oauth_token' => $access_token->oauth_token,
-        //     'oauth_token_secret' => $access_token->oauth_token_secret
-        // ]);
+        $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));
+        $url = $this->twitterOAuth->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token'])); 
+        TempToken::create([
+            'user_id' => auth()->id(),
+            'oauth_token' => $request_token['oauth_token'],
+            'oauth_token_secret' => $request_token['oauth_token_secret']
+        ]);
         return redirect($url);
     }     
 
-    public function handleProviderCallbackTwitter(Request $request) {                 
-        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
+    public function handleProviderCallbackTwitter(Request $request) {  
+        $tempToken = TempToken::where('user_id', auth()->id())->first();                   
+        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $tempToken->oauth_token, $tempToken->oauth_token_secret);
         $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
     }
 }
