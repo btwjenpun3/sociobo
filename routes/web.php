@@ -47,7 +47,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/twitter', [TwitterController::class, 'index'])->name('twitter');
 
-Route::post('/twitter/authorize', [oAuthController::class, 'authorizeTwitter'])->name('twitterUserAuthorize');
+Route::get('/twitter/authorize', [oAuthController::class, 'authorizeTwitter'])->name('twitterUserAuthorize');
 
 // ------------!! Twitter oAuth !!------------ //
 
