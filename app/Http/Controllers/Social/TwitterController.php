@@ -27,8 +27,8 @@ class TwitterController extends Controller
             $this->consumerKey, 
             $this->consumerSecret
         );
-        $this->userAccessToken = oAuth::where('user_id', auth()->id())->first();
-        $this->connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $this->userAccessToken->oauth_token, $this->userAccessToken->oauth_token_secret);
+        $userAccessToken = oAuth::where('user_id', auth()->id())->first();
+        $this->connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userAccessToken->oauth_token, $userAccessToken->oauth_token_secret);
     }
 
     public function index() {        
