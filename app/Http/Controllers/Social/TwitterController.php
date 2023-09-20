@@ -24,7 +24,7 @@ class TwitterController extends Controller
         $userToken = oAuth::where('user_id', auth()->id())->first();
         if(isset($userToken)) {   
             $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userToken->oauth_token, $userToken->oauth_token_secret);
-            $response = $connection->get('account/settings');         
+            $response = $connection->get('account/verify_credentials', ['tweet_mode' => 'extended', 'include_entities' => 'true']);         
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
