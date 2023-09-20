@@ -6,35 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\oAuth;
-use App\Http\Controllers\oAuthController;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 class TwitterController extends Controller
-{    
+{  
     private $consumerKey;
     private $consumerSecret;
-    private $twitterOAuth;
-    private $callback;
-    private $connection;
-    private $userAccessToken;
 
     public function __construct() {
         $this->consumerKey = env('TWITTER_CONSUMER_KEY');
-        $this->consumerSecret = env('TWITTER_CONSUMER_SECRET');
-        $this->callback = env('TWITTER_CALLBACK_URL');
-        $this->twitterOAuth = new TwitterOAuth(
-            $this->consumerKey, 
-            $this->consumerSecret
-        );
-        $userAccessToken = oAuth::where('user_id', auth()->id())->first();
-        $this->connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userAccessToken->oauth_token, $userAccessToken->oauth_token_secret);
+        $this->consumerSecret = env('TWITTER_CONSUMER_SECRET'); 
     }
 
     public function index() {        
-        $userData = $this->userAccessToken;
+        $userData = oAuth::where('user_id', auth()->id())->first();
+        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userData->oauth_token, $userData->oauth_token_secret);
         if(isset($userData)) {   
-            $user = $this->connection->get('account/verify_credentials', ['tweet_mode' => 'extended', 'include_entities' => 'true']);         
+            $user = $connection->get('account/verify_credentials', ['tweet_mode' => 'extended', 'include_entities' => 'true']);         
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
