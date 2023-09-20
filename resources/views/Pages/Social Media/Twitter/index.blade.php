@@ -1,7 +1,7 @@
 @extends('Main Layouts.main')
 
 @section('content')
-    @if (isset($name))
+    @if (!isset($name))
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
