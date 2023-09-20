@@ -12,10 +12,9 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 class TwitterController extends Controller
 {      
     public function index() {        
-        $user = User::where('id', auth()->id())->first();
+        $userData = oAuth::where('user_id', auth()->id())->first();
         return view('Pages.Social Media.Twitter.index', [
-            'provider' => $user->provider,
-            'provider_id' => $user->provider_id
+            'name' => $userData->screen_name,
         ]);
     }  
 }
