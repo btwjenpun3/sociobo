@@ -17,8 +17,7 @@
                                     <label for="oauth_token_secret" class="form-label">oAuth Token Secret</label>
                                     <input type="oauth_token_secret" class="form-control" id="oauth_token_secret" disabled>
                                 </div>
-                                <a href="{{ route('authorizeTwitter') }}"><button type="submit"
-                                        class="btn btn-warning">Autherize</button></a>
+                                <a href="{{ route('authorizeTwitter') }}" class="btn btn-warning">Authorize</a>
                             </form>
                         </div>
                     </div>
