@@ -16,20 +16,5 @@ class TwitterController extends Controller
             'provider' => $user->provider,
             'provider_id' => $user->provider_id
         ]);
-    }    
-
-    public function getFollower() {
-        $consumerKey = env('TWITTER_CONSUMER_KEY');
-        $consumerSecret = env('TWITTER_CONSUMER_SECRET');
-        $accessToken = env('TWITTER_ACCESS_TOKEN');
-        $accessTokenSecret = env('TWITTER_ACCESS_TOKEN_SECRET');
-        $callback = env('TWITTER_CALLBACK_URL');
-        $twitterOAuth = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
-        $request_token = $twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $callback));
-        // return view('Pages.Social Media.Twitter.follower', [
-        //     'followers' => $followers
-        // ]);
-        return response()->json($request_token);
-        
-    }
+    } 
 }

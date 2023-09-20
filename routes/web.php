@@ -50,7 +50,7 @@ Route::get('/twitter/follower', [TwitterController::class, 'getFollower']);
 
 // ------------!! Twitter oAuth !!------------ //
 
-Route::get('/oauth/twitter/login', [oAuthController::class, 'redirectToProviderTwitter'])->name('loginTwitter');
+Route::get('/oauth/twitter/login', [oAuthController::class, 'authorizeTwitter'])->name('loginTwitter');
 
 Route::get('/oauth/twitter/callback', [oAuthController::class, 'handleProviderCallbackTwitter'])->name('callbackTwitter');
 
