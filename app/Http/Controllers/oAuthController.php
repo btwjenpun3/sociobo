@@ -34,6 +34,7 @@ class oAuthController extends Controller
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));         
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
         $access_token = $connection->get('account/verify_credentials');
+        dd($access_token);
         oAuth::create([
             'user_id' => auth()->id(),
             'provider' => 'twitter',
