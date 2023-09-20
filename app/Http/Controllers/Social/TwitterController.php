@@ -21,14 +21,17 @@ class TwitterController extends Controller
     }
 
     public function index() {        
-        $userData = oAuth::where('user_id', auth()->id())->first();
-        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userData->oauth_token, $userData->oauth_token_secret);
-        if(isset($userData)) {   
-            $user = $connection->get('account/verify_credentials', ['tweet_mode' => 'extended', 'include_entities' => 'true']);         
+        $userToken = oAuth::where('user_id', auth()->id())->first();
+        if(isset($userToken)) {   
+            $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userToken->oauth_token, $userToken->oauth_token_secret);
+            $userData = $connection->get('account/verify_credentials', [
+                'tweet_mode' => 'extended', 
+                'include_entities' => 'true'
+            ]);         
             // return view('Pages.Social Media.Twitter.index', [
             //     'name' => $userData->screen_name,
             // ]);
-            return response()->json($user);
+            return response()->json($userData);
         } else {
             return view('Pages.Social Media.Twitter.index');
         }
