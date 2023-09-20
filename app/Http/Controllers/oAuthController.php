@@ -30,12 +30,11 @@ class oAuthController extends Controller
 
     public function authorizeTwitter() {         
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback)); 
-        $user = User::find(auth()->id());
-        $user->update([
-            'oauth_token' => json_decode($request_token->oauth_token),
-            'oauth_token_secret' => json_decode($request_token->oauth_token_secret)
-        ]);
-
+        // $user = User::find(auth()->id());
+        // $user->update([
+        //     'oauth_token' => json_decode($request_token->oauth_token),
+        //     'oauth_token_secret' => json_decode($request_token->oauth_token_secret)
+        // ]);
         return redirect()->route('twitter');
     }
 
