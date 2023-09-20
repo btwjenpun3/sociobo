@@ -43,7 +43,7 @@ class oAuthController extends Controller
     }     
 
     public function handleProviderCallbackTwitter(Request $request) {  
-        $tempToken = TempToken::where('user_id', auth()->id())->latest('user_id')->first();                   
+        $tempToken = TempToken::where('user_id', auth()->id())->latest('id')->first();                   
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $tempToken->oauth_token, $tempToken->oauth_token_secret);
         $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
 
