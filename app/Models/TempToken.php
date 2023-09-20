@@ -9,7 +9,9 @@ class TempToken extends Model
 {
     use HasFactory;
 
-    protected $protected = [   
-        'id'
+    protected $fillable = [   
+        'user_id',
+        'oauth_token',
+        'oauth_token_secret'
     ];
 }
