@@ -11,18 +11,20 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 
 class oAuthController extends Controller
 {   
+    private $consumerKey;
+    private $consumerSecret;
     private $twitterOAuth;
     private $callback;
 
     public function __construct() {
-        $consumerKey = env('TWITTER_CONSUMER_KEY');
-        $consumerSecret = env('TWITTER_CONSUMER_SECRET');
+        $this->consumerKey = env('TWITTER_CONSUMER_KEY');
+        $this->consumerSecret = env('TWITTER_CONSUMER_SECRET');
         $accessToken = env('TWITTER_ACCESS_TOKEN');
         $accessTokenSecret = env('TWITTER_ACCESS_TOKEN_SECRET');
         $this->callback = env('TWITTER_CALLBACK_URL');
         $this->twitterOAuth = new TwitterOAuth(
-            $consumerKey, 
-            $consumerSecret, 
+            $this->consumerKey, 
+            $this->consumerSecret, 
             $accessToken, 
             $accessTokenSecret
         );
@@ -30,15 +32,19 @@ class oAuthController extends Controller
 
     public function authorizeTwitter() {         
         $request_token = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->callback));         
+        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $request_token['oauth_token'], $request_token['oauth_token_secret']);
         oAuth::create([
+            'user_id' => auth()->id(),
             'provider' => 'twitter',
-            'oauth_token' => $request_token['oauth_token'],
-            'oauth_token_secret' => $request_token['oauth_token_secret']
+            'provider_user_id' => $connection['user_id'],
+            'screen_name' => $connection['screen_name'],
+            'oauth_token' => $connection['oauth_token'],
+            'oauth_token_secret' => $connection['oauth_token_secret']
         ]);
-        return redirect()->route('settingOAuthTwitter');
+        return redirect()->route('twitter');
     }     
 
     public function handleProviderCallbackTwitter() {        
-        return redirect()->route('settingOAuthTwitter');
+        return redirect()->route('twitter');
     }
 }

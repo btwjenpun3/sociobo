@@ -47,6 +47,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/twitter', [TwitterController::class, 'index'])->name('twitter');
 
+Route::get('/twitter/authorize', [oAuthController::class, 'authorizeTwitter'])->name('twitterUserAuthorize');
+
 // ------------!! Twitter oAuth !!------------ //
 
 Route::get('/oauth/twitter/authorize', [oAuthController::class, 'authorizeTwitter'])->name('authorizeTwitter');
@@ -56,7 +58,6 @@ Route::get('/oauth/twitter/callback', [oAuthController::class, 'handleProviderCa
 // ----------------------------------------------------------- //
 // ------------!! Settings Route !!------------ //
 
-Route::get('/setting/oauth/twitter', [SettingController::class, 'oAuthTwitter'])->name('settingOAuthTwitter');
 
 
 

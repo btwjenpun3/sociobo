@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('o_auths', function (Blueprint $table) {
             $table->id();
-            $table->string('provider')->unique();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('provider');
+            $table->string('provider_user_id')->unique();
+            $table->string('screen_name')->unique();
             $table->string('oauth_token')->unique();
             $table->string('oauth_token_secret')->unique();
             $table->timestamps();

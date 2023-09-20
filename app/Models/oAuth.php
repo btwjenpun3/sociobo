@@ -9,9 +9,7 @@ class oAuth extends Model
 {
     use HasFactory;
 
-    protected $fillable = [   
-        'provider',     
-        'oauth_token',
-        'oauth_token_secret'
+    protected $protected = [   
+        'id'
     ];
 }
