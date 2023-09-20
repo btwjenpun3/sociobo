@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\oAuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Social\TwitterController;
 
 /*
@@ -48,9 +49,14 @@ Route::get('/twitter', [TwitterController::class, 'index'])->name('twitter');
 
 // ------------!! Twitter oAuth !!------------ //
 
-Route::get('/oauth/twitter/login', [oAuthController::class, 'authorizeTwitter'])->name('loginTwitter');
+Route::get('/oauth/twitter/authorize', [oAuthController::class, 'authorizeTwitter'])->name('authorizeTwitter');
 
 Route::get('/oauth/twitter/callback', [oAuthController::class, 'handleProviderCallbackTwitter'])->name('callbackTwitter');
+
+// ----------------------------------------------------------- //
+// ------------!! Settings Route !!------------ //
+
+Route::get('/setting/oauth/twitter', [SettingController::class, 'oAuthTwitter'])->name('settingOAuthTwitter');
 
 
 

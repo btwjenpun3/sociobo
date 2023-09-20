@@ -37,6 +37,18 @@
                         <span class="hide-menu">Twitter</span>
                     </a>
                 </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">SETTINGS</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('settingOAuthTwitter') }}" aria-expanded="false">
+                        <span>
+                            <i class="bi bi-person"></i>
+                        </span>
+                        <span class="hide-menu">oAuth</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
